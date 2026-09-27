@@ -24,9 +24,14 @@ fi
 
 # 1. Instalar CheckUser-Go
 echo -e "${YELLOW}[1/5] Instalando CheckUser-Go...${NC}"
-bash <(curl -sL https://raw.githubusercontent.com/DTunnel0/CheckUser-Go/refs/heads/master/install.sh) <<EOF
-1
-EOF
+TMP_CU_INSTALLER=$(mktemp)
+curl -sL https://raw.githubusercontent.com/DTunnel0/CheckUser-Go/refs/heads/master/install.sh -o "$TMP_CU_INSTALLER"
+# Remove a chamada final "main" do instalador oficial, pra não abrir o menu
+# interativo dele (isso é o que causava a tela piscando sem parar)
+sed -i '/^main$/d' "$TMP_CU_INSTALLER"
+source "$TMP_CU_INSTALLER"
+install_checkuser < /dev/null
+rm -f "$TMP_CU_INSTALLER"
 
 # 2. Instalar cloudflared
 echo -e "${YELLOW}[2/5] Instalando Cloudflare Tunnel...${NC}"
