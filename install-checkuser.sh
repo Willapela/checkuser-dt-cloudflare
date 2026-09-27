@@ -30,7 +30,7 @@ curl -sL https://raw.githubusercontent.com/DTunnel0/CheckUser-Go/refs/heads/mast
 # interativo dele (isso é o que causava a tela piscando sem parar)
 sed -i '/^main$/d' "$TMP_CU_INSTALLER"
 source "$TMP_CU_INSTALLER"
-install_checkuser < /dev/null
+install_checkuser
 rm -f "$TMP_CU_INSTALLER"
 
 # 2. Instalar cloudflared
